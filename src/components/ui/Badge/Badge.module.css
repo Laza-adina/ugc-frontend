@@ -1,0 +1,25 @@
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  
+  .draft     { background: #f3f4f6; color: #6b7280; }
+  .published { background: var(--color-info-bg); color: var(--color-info); }
+  .in_progress { background: var(--color-warning-bg); color: var(--color-warning); }
+  .completed { background: var(--color-success-bg); color: var(--color-success); }
+  .archived  { background: #f3f4f6; color: #9ca3af; }
+  .approved  { background: var(--color-success-bg); color: var(--color-success); }
+  .pending   { background: var(--color-warning-bg); color: var(--color-warning); }
+  .rejected  { background: var(--color-danger-bg); color: var(--color-danger); }
+  .invited   { background: var(--color-info-bg); color: var(--color-info); }
+  .declined  { background: var(--color-danger-bg); color: var(--color-danger); }
+  .submitted { background: #f0fdf4; color: #16a34a; }
+  .nano      { background: #faf5ff; color: #7c3aed; }
+  .micro     { background: #eff6ff; color: #2563eb; }
+  .macro     { background: #fff7ed; color: #ea580c; }
+  .mega      { background: #fef2f2; color: #dc2626; }

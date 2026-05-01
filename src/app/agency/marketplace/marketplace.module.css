@@ -1,0 +1,105 @@
+.filters {
+    display: flex;
+    gap: var(--space-3);
+    align-items: flex-end;
+    flex-wrap: wrap;
+  }
+  
+  .select {
+    height: 38px;
+    padding: 0 var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-md);
+    color: var(--color-text-primary);
+    background: var(--color-surface);
+    outline: none;
+    cursor: pointer;
+    min-width: 160px;
+  }
+  
+  .select:focus { border-color: var(--color-accent); }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+  }
+  
+  .creatorHeader {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+  
+  .avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-full);
+    background: var(--color-accent-light);
+    color: var(--color-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: var(--font-size-lg);
+    flex-shrink: 0;
+  }
+  
+  .username {
+    font-weight: 600;
+    font-size: var(--font-size-md);
+  }
+  
+  .location {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+  
+  .niches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+    margin-bottom: var(--space-3);
+  }
+  
+  .nicheTag {
+    padding: 2px 8px;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+  }
+  
+  .platforms {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    margin-bottom: var(--space-4);
+  }
+  
+  .platformItem {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--font-size-sm);
+  }
+  
+  .platformName { font-weight: 500; }
+  .followers { color: var(--color-text-muted); }
+  
+  .vettingRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-border);
+  }
+  
+  .empty {
+    text-align: center;
+    padding: var(--space-10);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+  }

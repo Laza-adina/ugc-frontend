@@ -1,0 +1,63 @@
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  
+  .collabHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--space-4);
+  }
+  
+  .campaignName {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+  }
+  
+  .brandInfo {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-top: var(--space-1);
+  }
+  
+  .brief {
+    background: var(--color-bg);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    margin-bottom: var(--space-4);
+  }
+  
+  .briefLabel {
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-2);
+  }
+  
+  .briefText {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+  
+  .contentsCount {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-4);
+  }
+  
+  .actions {
+    display: flex;
+    gap: var(--space-3);
+  }
+  
+  .empty {
+    text-align: center;
+    padding: var(--space-10);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+  }
