@@ -1,18 +1,22 @@
 {
-    "name": "ugc-frontend",
-    "version": "1.0.0",
-    "scripts": {
-      "dev": "next dev",
-      "build": "next build",
-      "start": "next start"
-    },
-    "dependencies": {
-      "next": "^14.2.0",
-      "react": "^18.3.0",
-      "react-dom": "^18.3.0"
-    },
-    "devDependencies": {
-      "eslint": "^8.57.0",
-      "eslint-config-next": "^14.2.0"
-    }
+  "name": "ugc-frontend",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "^16.2.4",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.14",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "^16.2.4"
+  },
+  "overrides": {
+    "postcss": "^8.5.10"
   }
+}

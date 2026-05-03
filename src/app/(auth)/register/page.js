@@ -1,38 +1,43 @@
 // src/app/(auth)/register/page.js
-'use client';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { api } from '@/lib/api';
-import { useAuth } from '@/hooks/useAuth';
-import Button from '@/components/ui/Button/Button';
-import Input from '@/components/ui/Input/Input';
-import styles from '../auth.module.css';
+"use client";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { api } from "@/lib/api";
+import { useAuth } from "@/hooks/useAuth";
+import Button from "@/components/ui/Button/Button";
+import Input from "@/components/ui/Input/Input";
+import styles from "../auth.module.css";
 
 export default function RegisterPage() {
   const router = useRouter();
   const { login } = useAuth();
   const [form, setForm] = useState({
-    email: '', password: '', role: 'AGENCY',
-    firstName: '', lastName: '',
+    email: "",
+    password: "",
+    role: "AGENCY",
+    firstName: "",
+    lastName: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
-
-    
     e.preventDefault();
     console.log("FRONTEND DATA:", JSON.stringify(form, null, 2));
     setLoading(true);
-    setError('');
+    setError("");
     try {
       const res = await api.auth.register(form);
-      login(res.data.user, res.data.tokens);
-      if (res.data.user.role === 'AGENCY') router.replace('/agency/dashboard');
-      else router.replace('/creator/dashboard');
+      const data = res?.data ?? res;
+      const user = data?.user ?? res?.user;
+      const tokens = data?.tokens ?? res?.tokens ?? data;
+      login(user, tokens);
+      if (user?.role === "AGENCY") router.replace("/agency/dashboard");
+      else if (user?.role === "CREATOR") router.replace("/creator/dashboard");
+      else router.replace("/login");
     } catch (err) {
-      setError(err.message || 'Erreur lors de la creation du compte');
+      setError(err.message || "Erreur lors de la creation du compte");
     } finally {
       setLoading(false);
     }
@@ -49,14 +54,14 @@ export default function RegisterPage() {
           {error && <div className={styles.errorAlert}>{error}</div>}
 
           <div className={styles.roleToggle}>
-            {['AGENCY', 'CREATOR'].map((r) => (
+            {["AGENCY", "CREATOR"].map((r) => (
               <button
                 key={r}
                 type="button"
-                className={`${styles.roleBtn} ${form.role === r ? styles.roleBtnActive : ''}`}
+                className={`${styles.roleBtn} ${form.role === r ? styles.roleBtnActive : ""}`}
                 onClick={() => setForm({ ...form, role: r })}
               >
-                {r === 'AGENCY' ? 'Agence' : 'Createur'}
+                {r === "AGENCY" ? "Agence" : "Createur"}
               </button>
             ))}
           </div>
@@ -93,7 +98,7 @@ export default function RegisterPage() {
             required
           />
           <Button type="submit" full disabled={loading}>
-            {loading ? 'Creation...' : 'Creer mon compte'}
+            {loading ? "Creation..." : "Creer mon compte"}
           </Button>
         </form>
 

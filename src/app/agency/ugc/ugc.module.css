@@ -1,0 +1,152 @@
+.filters {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-end;
+}
+
+.select {
+  height: 40px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  min-width: 150px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-6);
+}
+
+.assetCard {
+  overflow: hidden;
+  padding: 0 !important;
+}
+
+.assetPreview {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9/16;
+  background: black;
+}
+
+.media {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.sourceBadge {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+}
+
+.assetInfo {
+  padding: var(--space-4);
+}
+
+.authorRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-2);
+}
+
+.author {
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+}
+
+.caption {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-4);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.assetActions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.empty {
+  text-align: center;
+  padding: 40px;
+  color: var(--color-text-muted);
+}
+
+/* Tagging styles */
+.taggingContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+}
+
+.previewContainer {
+  position: relative;
+  background: black;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.tagPreview {
+  width: 100%;
+  display: block;
+}
+
+.tagPin {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background: var(--color-accent);
+  color: white;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  transform: translate(-50%, -50%);
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.tagsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+
+.tagItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--color-bg);
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+}
+
+.tagIndex {
+  width: 24px;
+  height: 24px;
+  background: var(--color-surface-muted);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+}

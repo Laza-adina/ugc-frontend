@@ -18,6 +18,12 @@ export default function CreatorCollaborationsPage() {
   const [contentUrl, setContentUrl] = useState('');
   const [format, setFormat] = useState('VIDEO_VERTICAL');
 
+  // Messaging State
+  const [chatModal, setChatModal] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState('');
+  const [sendingMessage, setSendingMessage] = useState(false);
+
   const load = async () => {
     try {
       const res = await api.collaborations.me();
@@ -45,6 +51,32 @@ export default function CreatorCollaborationsPage() {
       setContentUrl('');
       load();
     } catch (e) { alert(e.message); }
+  };
+
+  const openChat = async (collab) => {
+    setSelected(collab);
+    setChatModal(true);
+    try {
+      const res = await api.messages.list(collab.id);
+      setMessages(res.data || []);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleSendMessage = async () => {
+    if (!newMessage.trim()) return;
+    setSendingMessage(true);
+    try {
+      await api.messages.send(selected.id, { body: newMessage });
+      setNewMessage('');
+      const res = await api.messages.list(selected.id);
+      setMessages(res.data || []);
+    } catch (e) {
+      alert(e.message);
+    } finally {
+      setSendingMessage(false);
+    }
   };
 
   const FORMATS = ['VIDEO_VERTICAL','VIDEO_HORIZONTAL','UGC_TESTIMONIAL','PHOTO','CAROUSEL','STORY','REEL'];
@@ -107,6 +139,9 @@ export default function CreatorCollaborationsPage() {
                     Soumettre un contenu
                   </Button>
                 )}
+                <Button size="sm" variant="ghost" onClick={() => openChat(collab)}>
+                  Message
+                </Button>
               </div>
             </Card>
           ))}
@@ -142,6 +177,39 @@ export default function CreatorCollaborationsPage() {
             >
               {FORMATS.map(f => <option key={f} value={f}>{f}</option>)}
             </select>
+          </div>
+        </Modal>
+      )}
+
+      {chatModal && (
+        <Modal
+          title={`Chat avec l'agence`}
+          onClose={() => setChatModal(false)}
+          footer={
+            <div className={styles.chatFooter}>
+               <Input
+                 placeholder="Écrivez un message..."
+                 value={newMessage}
+                 onChange={(e) => setNewMessage(e.target.value)}
+                 onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+               />
+               <Button onClick={handleSendMessage} disabled={sendingMessage || !newMessage.trim()}>
+                 {sendingMessage ? '...' : 'Envoyer'}
+               </Button>
+            </div>
+          }
+        >
+          <div className={styles.messageList}>
+            {messages.length === 0 ? (
+              <div className={styles.empty}>Aucun message</div>
+            ) : (
+              messages.map((msg, i) => (
+                <div key={i} className={`${styles.messageItem} ${msg.senderId === selected.creatorUserId ? styles.messageMe : styles.messageOther}`}>
+                   <div className={styles.messageBody}>{msg.body}</div>
+                   <div className={styles.messageTime}>{new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                </div>
+              ))
+            )}
           </div>
         </Modal>
       )}

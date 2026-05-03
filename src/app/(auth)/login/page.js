@@ -1,32 +1,36 @@
 // src/app/(auth)/login/page.js
-'use client';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { api } from '@/lib/api';
-import { useAuth } from '@/hooks/useAuth';
-import Button from '@/components/ui/Button/Button';
-import Input from '@/components/ui/Input/Input';
-import styles from '../auth.module.css';
+"use client";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { api } from "@/lib/api";
+import { useAuth } from "@/hooks/useAuth";
+import Button from "@/components/ui/Button/Button";
+import Input from "@/components/ui/Input/Input";
+import styles from "../auth.module.css";
 
 export default function LoginPage() {
   const router = useRouter();
   const { login } = useAuth();
-  const [form, setForm] = useState({ email: '', password: '' });
-  const [error, setError] = useState('');
+  const [form, setForm] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
+    setError("");
     try {
       const res = await api.auth.login(form);
-      login(res.data.user, res.data.tokens);
-      if (res.data.user.role === 'AGENCY') router.replace('/agency/dashboard');
-      else router.replace('/creator/dashboard');
+      const data = res?.data ?? res;
+      const user = data?.user ?? res?.user;
+      const tokens = data?.tokens ?? res?.tokens ?? data;
+      login(user, tokens);
+      if (user?.role === "AGENCY") router.replace("/agency/dashboard");
+      else if (user?.role === "CREATOR") router.replace("/creator/dashboard");
+      else router.replace("/login");
     } catch (err) {
-      setError(err.message || 'Identifiants incorrects');
+      setError(err.message || "Identifiants incorrects");
     } finally {
       setLoading(false);
     }
@@ -58,13 +62,12 @@ export default function LoginPage() {
             required
           />
           <Button type="submit" full disabled={loading}>
-            {loading ? 'Connexion...' : 'Se connecter'}
+            {loading ? "Connexion..." : "Se connecter"}
           </Button>
         </form>
 
         <p className={styles.link}>
-          Pas encore de compte ?{' '}
-          <Link href="/register">Creer un compte</Link>
+          Pas encore de compte ? <Link href="/register">Creer un compte</Link>
         </p>
       </div>
     </div>

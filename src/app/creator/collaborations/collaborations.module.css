@@ -54,6 +54,56 @@
     display: flex;
     gap: var(--space-3);
   }
+
+  .chatFooter {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-2);
+    align-items: end;
+    width: 100%;
+  }
+  
+  .messageList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    max-height: 400px;
+    overflow-y: auto;
+    padding: var(--space-2);
+  }
+  
+  .messageItem {
+    max-width: 80%;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-sm);
+    position: relative;
+  }
+  
+  .messageMe {
+    align-self: flex-end;
+    background: var(--color-accent);
+    color: white;
+    border-bottom-right-radius: 2px;
+  }
+  
+  .messageOther {
+    align-self: flex-start;
+    background: var(--color-surface-muted);
+    color: var(--color-text-primary);
+    border-bottom-left-radius: 2px;
+  }
+  
+  .messageBody {
+    line-height: 1.4;
+  }
+  
+  .messageTime {
+    font-size: 10px;
+    opacity: 0.7;
+    margin-top: 4px;
+    text-align: right;
+  }
   
   .empty {
     text-align: center;
