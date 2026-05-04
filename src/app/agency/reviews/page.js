@@ -25,47 +25,59 @@ export default function ReviewsPage() {
     brandId: "",
   });
 
-  const loadBrands = async () => {
-    try {
-      const res = await api.brands.list();
-      const data = res?.data ?? res;
-      const list = Array.isArray(data)
-        ? data
-        : data?.brands || data?.items || [];
-      setBrands(list);
-    } catch (e) {
-      console.error(e);
-      setBrands([]);
-    }
-  };
-
-  const loadRequests = async () => {
-    setLoading(true);
-    try {
-      const res = await api.reviews.listRequests({ brandId });
-      const data = res?.data ?? res;
-      const list = Array.isArray(data)
-        ? data
-        : data?.reviews || data?.requests || [];
-      setRequests(list);
-    } catch (e) {
-      console.error(e);
-      setRequests([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    loadBrands();
-    loadRequests();
+    const fetchBrands = async () => {
+      try {
+        const res = await api.brands.list();
+        const data = res?.data ?? res;
+        const list = Array.isArray(data)
+          ? data
+          : data?.brands || data?.items || [];
+        setBrands(list);
+      } catch (e) {
+        console.error(e);
+        setBrands([]);
+      }
+    };
+    const fetchRequests = async () => {
+      setLoading(true);
+      try {
+        const res = await api.reviews.listRequests({ brandId });
+        const data = res?.data ?? res;
+        const list = Array.isArray(data)
+          ? data
+          : data?.reviews || data?.requests || [];
+        setRequests(list);
+      } catch (e) {
+        console.error(e);
+        setRequests([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBrands();
+    fetchRequests();
   }, [brandId]);
 
   const handleCreateRequest = async () => {
     try {
       await api.reviews.createRequest(form);
       setRequestModal(false);
-      loadRequests();
+      // Refetch requests after creating
+      setLoading(true);
+      try {
+        const res = await api.reviews.listRequests({ brandId });
+        const data = res?.data ?? res;
+        const list = Array.isArray(data)
+          ? data
+          : data?.reviews || data?.requests || [];
+        setRequests(list);
+      } catch (e) {
+        console.error(e);
+        setRequests([]);
+      } finally {
+        setLoading(false);
+      }
     } catch (e) {
       alert(e.message);
     }
@@ -74,7 +86,21 @@ export default function ReviewsPage() {
   const handleMarkAsSent = async (id) => {
     try {
       await api.reviews.markAsSent(id);
-      loadRequests();
+      // Refetch requests after marking as sent
+      setLoading(true);
+      try {
+        const res = await api.reviews.listRequests({ brandId });
+        const data = res?.data ?? res;
+        const list = Array.isArray(data)
+          ? data
+          : data?.reviews || data?.requests || [];
+        setRequests(list);
+      } catch (e) {
+        console.error(e);
+        setRequests([]);
+      } finally {
+        setLoading(false);
+      }
     } catch (e) {
       alert(e.message);
     }
@@ -117,7 +143,7 @@ export default function ReviewsPage() {
       {loading ? (
         <div className={styles.empty}>Chargement...</div>
       ) : requests.length === 0 ? (
-        <div className={styles.empty}>Aucune demande d'avis trouvée</div>
+        <div className={styles.empty}>Aucune demande d&apos;avis trouvée</div>
       ) : (
         <Card>
           <table className={styles.table}>
@@ -159,7 +185,7 @@ export default function ReviewsPage() {
                       )}
                       {req.status === "COMPLETED" && (
                         <Button size="sm" variant="ghost">
-                          Voir l'avis
+                          Voir l&apos;avis
                         </Button>
                       )}
                     </div>
